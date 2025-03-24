@@ -98,6 +98,103 @@ function formatMetricValue(value: number, metricType: MetricType): string {
   }
 }
 
+const LoadingSkeleton = () => (
+  <div style={{ height: '400px', position: 'relative' }}>
+    {/* Chart area skeleton */}
+    <div style={{ 
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: '40px', // Space for legend
+      backgroundColor: 'white',
+      borderRadius: '8px',
+      padding: '16px',
+      animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+    }}>
+      {/* Y-axis ticks */}
+      <div style={{ position: 'absolute', left: '0', top: '0', bottom: '0', width: '60px' }}>
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div key={i} style={{ 
+            position: 'absolute',
+            left: '0',
+            top: `${i * 20}%`,
+            width: '40px',
+            height: '12px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '2px'
+          }}></div>
+        ))}
+      </div>
+      
+      {/* Chart lines */}
+      {[1, 2, 3].map((line) => (
+        <div key={line} style={{
+          position: 'absolute',
+          left: '80px',
+          right: '20px',
+          top: `${line * 25}%`,
+          height: '2px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '1px'
+        }}></div>
+      ))}
+      
+      {/* X-axis labels */}
+      <div style={{ 
+        position: 'absolute', 
+        left: '80px',
+        right: '20px',
+        bottom: '-20px',
+        display: 'flex',
+        justifyContent: 'space-between'
+      }}>
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div key={i} style={{ 
+            width: '40px',
+            height: '12px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '2px'
+          }}></div>
+        ))}
+      </div>
+    </div>
+    
+    {/* Legend skeleton */}
+    <div style={{ 
+      position: 'absolute',
+      bottom: '0',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      display: 'flex',
+      gap: '16px',
+      padding: '8px 16px',
+      borderRadius: '4px'
+    }}>
+      {[1, 2, 3].map((i) => (
+        <div key={i} style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <div style={{ 
+            width: '12px',
+            height: '12px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '2px'
+          }}></div>
+          <div style={{ 
+            width: '60px',
+            height: '12px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '2px'
+          }}></div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const PlatformComparison: React.FC<PlatformComparisonProps> = ({ 
   timeSeriesData, 
   platformSummaries, 
@@ -184,7 +281,7 @@ const PlatformComparison: React.FC<PlatformComparisonProps> = ({
       </CardHeader>
       <CardBody style={{ padding: '20px' }}>
         {isLoading ? (
-          <div>Loading comparison data...</div>
+          <LoadingSkeleton />
         ) : (
           <div style={{ height: '400px' }}>
             <Chart style={{ height: '100%' }}>

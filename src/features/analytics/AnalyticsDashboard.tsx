@@ -39,6 +39,147 @@ const formatPercentage = (value: number): string => {
   return `${value.toFixed(1)}%`;
 };
 
+// Loading skeleton component
+const LoadingSkeleton = () => (
+  <div style={{ padding: '24px' }}>
+    <div style={{ 
+      width: '200px', 
+      height: '32px',
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      borderRadius: '6px',
+      marginBottom: '24px'
+    }}></div>
+    
+    <div style={{ 
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+      gap: '16px',
+      marginBottom: '24px'
+    }}>
+      {[1, 2, 3, 4].map(i => (
+        <div key={i} style={{ 
+          height: '120px',
+          backgroundColor: 'white',
+          borderRadius: '10px',
+          padding: '20px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+          border: '1px solid rgba(226, 232, 240, 0.8)',
+          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+        }}>
+          <div style={{ 
+            width: '60%', 
+            height: '20px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px',
+            marginBottom: '12px'
+          }}></div>
+          <div style={{ 
+            width: '40%', 
+            height: '32px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+        </div>
+      ))}
+    </div>
+    
+    <div style={{ 
+      backgroundColor: 'white',
+      borderRadius: '12px',
+      padding: '24px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+      border: '1px solid rgba(226, 232, 240, 0.8)',
+      marginBottom: '24px'
+    }}>
+      <div style={{ 
+        width: '150px', 
+        height: '24px',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        borderRadius: '4px',
+        marginBottom: '16px'
+      }}></div>
+      <div style={{ 
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '16px'
+      }}>
+        {[1, 2, 3].map(i => (
+          <div key={i} style={{ 
+            height: '200px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '8px'
+          }}></div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+// Add styles for the pulse animation
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: .5;
+    }
+  }
+`;
+document.head.appendChild(styleSheet);
+
+const FilterCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <div 
+      style={{
+        background: 'var(--bg-primary)',
+        padding: '20px',
+        borderRadius: '12px',
+        border: '1px solid var(--border-color)',
+        transition: 'all 0.3s ease',
+        boxShadow: isHovered 
+          ? '0 8px 24px rgba(0, 0, 0, 0.08)' 
+          : '0 4px 16px rgba(0, 0, 0, 0.04)',
+        transform: isHovered ? 'translateY(-2px)' : 'none'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </div>
+  );
+};
+
+const CustomFloatingButton: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <Button
+      themeColor="primary"
+      rounded="full"
+      style={{
+        width: '56px',
+        height: '56px',
+        fontSize: '20px',
+        fontWeight: 'bold',
+        boxShadow: isHovered 
+          ? '0 12px 32px rgba(0, 0, 0, 0.2)'
+          : '0 8px 24px rgba(0, 0, 0, 0.15)',
+        transition: 'all 0.3s ease',
+        transform: isHovered ? 'translateY(-2px)' : 'none'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+    >
+      ?
+    </Button>
+  );
+};
+
 const AnalyticsDashboard: React.FC = () => {
   // State for loading
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -105,36 +246,44 @@ const AnalyticsDashboard: React.FC = () => {
   
   return (
     <div className="analytics-dashboard" style={{ 
-      padding: '16px 24px 32px', 
+      padding: '24px 32px 40px',
       maxWidth: '1800px', 
       margin: '0 auto',
-      backgroundColor: 'var(--bg-primary)'
+      backgroundColor: 'var(--bg-primary)',
+      minHeight: '100vh'
     }}>
       {/* Dashboard Header */}
       <div style={{ 
         display: 'flex', 
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '24px',
+        marginBottom: '32px',
         position: 'relative',
         zIndex: 1
       }}>
         <h1 style={{ 
-          fontSize: '28px', 
+          fontSize: '32px',
           fontWeight: 700, 
           margin: 0,
-          background: 'linear-gradient(90deg, var(--text-primary) 0%, var(--text-secondary) 100%)',
+          background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
-          textShadow: '0 2px 10px rgba(0,0,0,0.05)'
+          textShadow: '0 2px 10px rgba(0,0,0,0.05)',
+          letterSpacing: '-0.5px'
         }}>
           Analytics Dashboard
         </h1>
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '16px' }}>
           <Button
             themeColor="info"
-            icon="refresh"
-            rounded="medium"
+            rounded="large"
+            style={{
+              padding: '8px 16px',
+              fontSize: '14px',
+              fontWeight: 500,
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
+            }}
             onClick={() => {
               setIsLoading(true);
               setTimeout(() => {
@@ -147,8 +296,14 @@ const AnalyticsDashboard: React.FC = () => {
           </Button>
           <Button
             themeColor="primary"
-            icon="file-excel"
-            rounded="medium"
+            rounded="large"
+            style={{
+              padding: '8px 16px',
+              fontSize: '14px',
+              fontWeight: 500,
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)'
+            }}
             onClick={() => alert('Export Report feature would be implemented here')}
           >
             Export Report
@@ -160,14 +315,16 @@ const AnalyticsDashboard: React.FC = () => {
       {!isLoading && analytics && summaryMetrics && (
         <div style={{ 
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '16px',
-          marginBottom: '24px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px',
+          marginBottom: '32px',
           backgroundColor: 'var(--bg-secondary)',
-          borderRadius: '12px',
-          padding: '16px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-          border: '1px solid var(--border-color)'
+          borderRadius: '16px',
+          padding: '24px',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.06)',
+          border: '1px solid var(--border-color)',
+          backdropFilter: 'blur(8px)',
+          background: 'linear-gradient(to bottom right, var(--bg-secondary), rgba(255, 255, 255, 0.5))'
         }}>
           <StatCard 
             icon="user" 
@@ -207,17 +364,18 @@ const AnalyticsDashboard: React.FC = () => {
       <div style={{ 
         display: 'flex',
         flexDirection: 'column',
-        gap: '24px'
+        gap: '32px'
       }}>
         {/* Filters Section */}
         <div style={{ 
-          padding: '24px',
-          background: 'var(--bg-secondary)',
-          borderRadius: '12px',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+          padding: '32px',
+          background: 'linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 255, 255, 0.8) 100%)',
+          borderRadius: '20px',
+          boxShadow: '0 12px 36px rgba(0, 0, 0, 0.08)',
           border: '1px solid var(--border-color)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          backdropFilter: 'blur(12px)'
         }}>
           <div style={{ 
             position: 'absolute',
@@ -225,55 +383,63 @@ const AnalyticsDashboard: React.FC = () => {
             left: 0,
             width: '100%',
             height: '4px',
-            background: 'linear-gradient(to right, #3880FF, #4B55E8)',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px'
+            background: 'linear-gradient(to right, #3880FF, #4B55E8, #8257E6)',
+            borderTopLeftRadius: '20px',
+            borderTopRightRadius: '20px'
           }}></div>
           
-          <div style={{ marginBottom: '16px' }}>
+          <div style={{ marginBottom: '24px' }}>
             <h2 style={{ 
-              fontSize: '18px', 
+              fontSize: '20px',
               fontWeight: 600, 
               margin: 0,
               display: 'flex',
               alignItems: 'center',
-              gap: '8px'
+              gap: '8px',
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.3px'
             }}>
-              <span className="k-icon k-i-filter" style={{ fontSize: '18px', color: '#3880FF' }}></span>
               Analytics Filters
             </h2>
-            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '6px' }}>
+            <div style={{ 
+              fontSize: '14px', 
+              color: 'var(--text-secondary)', 
+              marginTop: '8px',
+              opacity: 0.8
+            }}>
               Customize your dashboard view by adjusting the filters below
             </div>
           </div>
           
           <div style={{ 
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '24px'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '32px'
           }}>
-            <TimeSelector 
-              filter={filter}
-              onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
-            />
+            <FilterCard>
+              <TimeSelector 
+                filter={filter}
+                onFilterChange={setFilter}
+              />
+            </FilterCard>
             
-            <div style={{ height: '1px', background: 'var(--border-color)' }}></div>
-            
-            <PlatformFilter
-              filter={filter}
-              onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
-            />
+            <FilterCard>
+              <PlatformFilter
+                filter={filter}
+                onFilterChange={setFilter}
+              />
+            </FilterCard>
           </div>
           
-          {/* Active filters display */}
-          {(filter.platforms.length > 0 || filter.contentTypes.length > 0) && (
+          {/* Active filters display - hidden to remove X marks */}
+          {false && (filter.platforms.length > 0 || filter.contentTypes.length > 0) && (
             <div style={{ 
               display: 'flex', 
               flexWrap: 'wrap',
               gap: '8px',
               marginTop: '20px',
-              alignItems: 'center',
-              padding: '12px',
+              alignItems: 'flex-start',
+              padding: '16px',
               borderRadius: '8px',
               background: 'var(--bg-primary)',
               border: '1px dashed var(--border-color)'
@@ -288,7 +454,7 @@ const AnalyticsDashboard: React.FC = () => {
               }}>
                 Active filters:
               </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', flex: '1' }}>
                 {filter.platforms.map(platform => (
                   <Chip
                     key={platform}
@@ -324,14 +490,37 @@ const AnalyticsDashboard: React.FC = () => {
               </div>
             </div>
           )}
+          
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'flex-end',
+            marginTop: '24px'
+          }}>
+            <Button
+              themeColor="primary"
+              rounded="large"
+              style={{
+                padding: '10px 24px',
+                fontSize: '14px',
+                fontWeight: 500,
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+              }}
+              onClick={() => {
+                setIsLoading(true);
+                setTimeout(() => {
+                  const newFilter = { ...filter };
+                  setFilter(newFilter);
+                }, 300);
+              }}
+            >
+              Apply Filters
+            </Button>
+          </div>
         </div>
         
         {isLoading ? (
-          <div style={{ padding: '40px 0', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <LoadingCard height={300} />
-            <LoadingCard height={300} />
-            <LoadingCard height={400} />
-          </div>
+          <LoadingSkeleton />
         ) : (
           analytics && (
             <>
@@ -360,67 +549,94 @@ const AnalyticsDashboard: React.FC = () => {
                 underperformingContent={analytics.underperformingContent}
               />
               
-              {/* Expanding Sections for Additional Insights */}
-              <PanelBar expandMode="multiple">
-                <PanelBarItem 
-                  title={
-                    <div style={{ padding: '8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="k-icon k-i-group" style={{ fontSize: '18px' }}></span>
-                      <span style={{ fontSize: '16px', fontWeight: 600 }}>Audience Demographics</span>
-                    </div>
-                  } 
-                  expanded={true}
-                >
-                  <div style={{ padding: '16px 0' }}>
+              {/* Custom Expanding Sections - replaces PanelBar */}
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '24px', 
+                marginTop: '32px'
+              }}>
+                <div style={{ 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: 'var(--bg-secondary)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                }}>
+                  <div style={{ 
+                    padding: '16px 20px', 
+                    borderBottom: '1px solid var(--border-color)',
+                    background: 'var(--bg-primary)',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}>
+                    <span style={{ fontSize: '16px', fontWeight: 600 }}>Audience Demographics</span>
+                  </div>
+                  <div style={{ padding: '20px' }}>
                     <AudienceInsights
                       audienceDemographics={analytics.audienceDemographics}
                     />
                   </div>
-                </PanelBarItem>
+                </div>
                 
-                <PanelBarItem 
-                  title={
-                    <div style={{ padding: '8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="k-icon k-i-calendar" style={{ fontSize: '18px' }}></span>
-                      <span style={{ fontSize: '16px', fontWeight: 600 }}>Post Timing Analysis</span>
-                    </div>
-                  } 
-                  expanded={true}
-                >
-                  <div style={{ padding: '16px 0' }}>
+                <div style={{ 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: 'var(--bg-secondary)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                }}>
+                  <div style={{ 
+                    padding: '16px 20px', 
+                    borderBottom: '1px solid var(--border-color)',
+                    background: 'var(--bg-primary)',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}>
+                    <span style={{ fontSize: '16px', fontWeight: 600 }}>Post Timing Analysis</span>
+                  </div>
+                  <div style={{ padding: '20px' }}>
                     <PostTiming
                       postScheduleHeatmap={analytics.postScheduleHeatmap}
                     />
                   </div>
-                </PanelBarItem>
+                </div>
                 
-                <PanelBarItem 
-                  title={
-                    <div style={{ padding: '8px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span className="k-icon k-i-spark" style={{ fontSize: '18px' }}></span>
-                      <span style={{ fontSize: '16px', fontWeight: 600 }}>AI Optimization Impact</span>
-                    </div>
-                  } 
-                  expanded={true}
-                >
-                  <div style={{ padding: '16px 0' }}>
+                <div style={{ 
+                  border: '1px solid var(--border-color)', 
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  background: 'var(--bg-secondary)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                }}>
+                  <div style={{ 
+                    padding: '16px 20px', 
+                    borderBottom: '1px solid var(--border-color)',
+                    background: 'var(--bg-primary)',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}>
+                    <span style={{ fontSize: '16px', fontWeight: 600 }}>AI Optimization Impact</span>
+                  </div>
+                  <div style={{ padding: '20px' }}>
                     <AIPerformanceInsights
                       aiContentPerformance={analytics.aiContentPerformance}
                     />
                   </div>
-                </PanelBarItem>
-              </PanelBar>
+                </div>
+              </div>
               
               {/* Recommendations Section */}
               <div style={{
-                marginTop: '24px',
-                padding: '24px',
-                borderRadius: '12px',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                marginTop: '32px',
+                padding: '32px',
+                borderRadius: '20px',
+                boxShadow: '0 16px 48px rgba(0, 0, 0, 0.08)',
                 border: '1px solid var(--border-color)',
-                background: 'linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-secondary) 100%)',
+                background: 'linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 255, 255, 0.8) 100%)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                backdropFilter: 'blur(12px)'
               }}>
                 <div style={{ 
                   position: 'absolute',
@@ -440,7 +656,6 @@ const AnalyticsDashboard: React.FC = () => {
                   alignItems: 'center',
                   gap: '8px'
                 }}>
-                  <span className="k-icon k-i-lightbulb" style={{ color: '#FFB400', fontSize: '20px' }}></span>
                   AI-Powered Recommendations
                 </h2>
                 <div style={{
@@ -476,17 +691,11 @@ const AnalyticsDashboard: React.FC = () => {
       {/* Fixed action button */}
       <div style={{
         position: 'fixed',
-        bottom: '24px',
-        right: '24px',
+        bottom: '32px',
+        right: '32px',
         zIndex: 100
       }}>
-        <FloatingActionButton
-          icon="question"
-          themeColor="primary"
-          size="large"
-          style={{
-            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2)'
-          }}
+        <CustomFloatingButton 
           onClick={() => alert('AI assistant would provide analytics help here')}
         />
       </div>
@@ -512,100 +721,101 @@ const StatCard: React.FC<StatCardProps> = ({
   color,
   showChange = true
 }) => {
-  return (
-    <div className="summary-stat" style={{ 
-      display: 'flex', 
-      alignItems: 'center',
-      gap: '16px',
-      padding: '12px',
-      borderRadius: '8px',
-      transition: 'all 0.3s ease',
-      cursor: 'pointer'
-    }}
-    onMouseOver={(e) => {
-      e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.03)';
-    }}
-    onMouseOut={(e) => {
-      e.currentTarget.style.backgroundColor = 'transparent';
-    }}
-    >
-      <div style={{ 
-        width: '48px', 
-        height: '48px',
-        borderRadius: '12px',
-        background: `${color}15`,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: color
-      }}>
-        <span className={`k-icon k-i-${icon}`} style={{ fontSize: '24px' }}></span>
-      </div>
-      <div>
-        <div style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '4px' }}>
-          {title}
-        </div>
-        <div style={{ 
-          fontSize: '20px', 
-          fontWeight: 700, 
-          color: 'var(--text-primary)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px'
-        }}>
-          {value}
-          {showChange && changePercentage !== 0 && (
-            <span style={{ 
-              fontSize: '14px',
-              color: changePercentage > 0 ? '#28C76F' : '#EA5455',
-              backgroundColor: changePercentage > 0 ? 'rgba(40, 199, 111, 0.1)' : 'rgba(234, 84, 85, 0.1)',
-              padding: '2px 8px',
-              borderRadius: '4px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '2px'
-            }}>
-              {changePercentage > 0 ? '↑' : '↓'} 
-              {Math.abs(changePercentage).toFixed(1)}%
-            </span>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Helper component for loading cards
-const LoadingCard: React.FC<{ height: number }> = ({ height }) => {
+  const isPositive = changePercentage >= 0;
+  const changeColor = isPositive ? '#22C55E' : '#EF4444';
+  
   return (
     <div style={{ 
-      height: `${height}px`, 
-      borderRadius: '12px', 
-      background: 'var(--bg-secondary)', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-      border: '1px solid var(--border-color)',
-      overflow: 'hidden',
-      position: 'relative'
-    }}>
+      backgroundColor: 'white',
+      padding: '20px',
+      borderRadius: '10px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+      border: '1px solid rgba(226, 232, 240, 0.8)',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+      position: 'relative',
+      overflow: 'hidden'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = 'translateY(-5px)';
+      e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = 'translateY(0)';
+      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.03)';
+    }}
+    >
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
-        right: 0,
-        height: '3px',
-        background: 'linear-gradient(to right, transparent, var(--primary-color), transparent)',
-        animation: 'loadingShimmer 2s infinite'
+        width: '5px',
+        height: '100%',
+        backgroundColor: color,
+        borderTopLeftRadius: '10px',
+        borderBottomLeftRadius: '10px'
       }}></div>
-      <Loader size="large" type="pulsing" />
-      <style>{`
-        @keyframes loadingShimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
+      
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h3 style={{ 
+          fontSize: '16px', 
+          color: 'var(--text-secondary)', 
+          margin: 0,
+          fontWeight: 500
+        }}>
+          {title}
+        </h3>
+        
+        <div style={{ 
+          width: '40px',
+          height: '40px',
+          borderRadius: '10px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: `${color}15`,
+          color: color,
+          fontSize: '18px',
+          border: `2px solid ${color}`
+        }}>
+          <div style={{ 
+            width: '16px', 
+            height: '16px', 
+            backgroundColor: color, 
+            borderRadius: '4px' 
+          }}></div>
+        </div>
+      </div>
+      
+      <div style={{ marginTop: '16px' }}>
+        <h2 style={{ 
+          fontSize: '28px', 
+          fontWeight: 700, 
+          margin: 0, 
+          marginBottom: '4px',
+          color: 'var(--text-primary)'
+        }}>
+          {value}
+        </h2>
+        
+        {showChange && (
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            fontSize: '14px', 
+            color: changeColor,
+            fontWeight: 500
+          }}>
+            <span>{Math.abs(changePercentage).toFixed(1)}%</span>
+            <span style={{ marginLeft: '6px', color: 'var(--text-secondary)', fontSize: '13px' }}>
+              vs previous period
+            </span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -648,9 +858,15 @@ const RecommendationCard: React.FC<{
         alignItems: 'center',
         justifyContent: 'center',
         color: color,
-        fontSize: '20px'
+        fontSize: '20px',
+        border: `2px solid ${color}`
       }}>
-        <span className={`k-icon k-i-${icon}`}></span>
+        <div style={{ 
+          width: '16px', 
+          height: '16px', 
+          backgroundColor: color, 
+          borderRadius: '4px' 
+        }}></div>
       </div>
       <div>
         <h3 style={{ 

@@ -78,6 +78,79 @@ const formatContentType = (contentType: ContentType): string => {
   }
 };
 
+const LoadingSkeleton = () => (
+  <div style={{ padding: '0' }}>
+    {/* Header skeleton */}
+    <div style={{ 
+      padding: '16px',
+      borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
+      display: 'flex',
+      gap: '12px'
+    }}>
+      {[1, 2, 3].map((i) => (
+        <div key={i} style={{ 
+          width: '120px',
+          height: '32px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '4px',
+          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+        }}></div>
+      ))}
+    </div>
+    
+    {/* Table rows skeleton */}
+    <div style={{ height: '400px' }}>
+      {[1, 2, 3, 4, 5].map((row) => (
+        <div key={row} style={{ 
+          display: 'grid',
+          gridTemplateColumns: '120px 300px 130px repeat(3, 100px)',
+          gap: '16px',
+          padding: '12px 16px',
+          borderBottom: '1px solid rgba(226, 232, 240, 0.4)',
+          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+        }}>
+          <div style={{ 
+            width: '80%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+          <div style={{ 
+            width: '90%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+          <div style={{ 
+            width: '70%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+          <div style={{ 
+            width: '60%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+          <div style={{ 
+            width: '60%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+          <div style={{ 
+            width: '60%',
+            height: '24px',
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            borderRadius: '4px'
+          }}></div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const ContentPerformance: React.FC<ContentPerformanceProps> = ({
   topPerformingContent,
   underperformingContent,
@@ -266,7 +339,7 @@ const ContentPerformance: React.FC<ContentPerformanceProps> = ({
       </CardHeader>
       <CardBody style={{ padding: '0' }}>
         {isLoading ? (
-          <div style={{ padding: '20px' }}>Loading content data...</div>
+          <LoadingSkeleton />
         ) : (
           <Grid
             data={contentToShow}

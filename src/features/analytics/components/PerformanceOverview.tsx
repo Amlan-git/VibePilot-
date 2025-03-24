@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Card, 
   CardBody, 
@@ -82,6 +82,7 @@ const MetricCard: React.FC<{
   showComparison: boolean;
 }> = ({ metricSummary, sparklineData, showComparison }) => {
   const { metricType, value, changePercentage, platforms } = metricSummary;
+  const [isHovered, setIsHovered] = useState(false);
   
   // Prepare sparkline data if available
   const sparklineValues = sparklineData
@@ -93,18 +94,29 @@ const MetricCard: React.FC<{
   const changeIcon = changePercentage >= 0 ? '↑' : '↓';
   
   return (
-    <Card style={{ 
-      height: '100%',
-      borderRadius: '8px',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-    }}>
-      <CardBody style={{ padding: '20px' }}>
-        <div style={{ marginBottom: '12px' }}>
+    <div 
+      style={{ 
+        height: '100%',
+        borderRadius: '12px',
+        background: 'white',
+        boxShadow: isHovered 
+          ? '0 12px 24px rgba(0, 0, 0, 0.08)'
+          : '0 4px 12px rgba(0, 0, 0, 0.04)',
+        border: '1px solid rgba(226, 232, 240, 0.8)',
+        transition: 'all 0.3s ease',
+        transform: isHovered ? 'translateY(-2px)' : 'none'
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div style={{ padding: '24px' }}>
+        <div style={{ marginBottom: '16px' }}>
           <h3 style={{ 
-            fontSize: '15px', 
+            fontSize: '16px', 
             fontWeight: 600, 
             color: 'var(--text-secondary)',
-            margin: 0 
+            margin: 0,
+            letterSpacing: '-0.3px'
           }}>
             {getMetricDisplayName(metricType)}
           </h3>
@@ -113,10 +125,11 @@ const MetricCard: React.FC<{
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <div>
             <h2 style={{ 
-              fontSize: '24px', 
+              fontSize: '28px', 
               fontWeight: 700, 
               margin: '0 0 4px 0',
-              color: 'var(--text-primary)'
+              color: 'var(--text-primary)',
+              letterSpacing: '-0.5px'
             }}>
               {formatMetricValue(value, metricType)}
             </h2>
@@ -125,27 +138,36 @@ const MetricCard: React.FC<{
               <div style={{ 
                 display: 'flex', 
                 alignItems: 'center', 
-                fontSize: '13px',
+                fontSize: '14px',
                 fontWeight: 500,
-                color: changeColor
+                color: changeColor,
+                gap: '4px'
               }}>
                 <span>{changeIcon}</span>
-                <span style={{ marginLeft: '4px' }}>
-                  {Math.abs(changePercentage).toFixed(1)}%
+                <span>{Math.abs(changePercentage).toFixed(1)}%</span>
+                <span style={{ 
+                  marginLeft: '4px',
+                  color: 'var(--text-secondary)',
+                  fontSize: '13px',
+                  opacity: 0.8
+                }}>
+                  vs previous
                 </span>
               </div>
             )}
           </div>
           
           {sparklineValues.length > 0 && (
-            <div style={{ width: '100px', height: '40px' }}>
-              <Chart>
+            <div style={{ width: '120px', height: '40px' }}>
+              <Chart style={{ height: '100%' }}>
                 <ChartSeries>
                   <ChartSeriesItem 
                     type="line" 
                     data={sparklineValues}
                     color={changePercentage >= 0 ? '#3B82F6' : '#EF4444'} 
                     style="smooth"
+                    markers={{ visible: false }}
+                    line={{ width: 2 }}
                   />
                 </ChartSeries>
               </Chart>
@@ -155,59 +177,111 @@ const MetricCard: React.FC<{
         
         {showComparison && platforms.length > 0 && (
           <div style={{ 
-            marginTop: '16px',
+            marginTop: '20px',
             display: 'flex',
-            gap: '8px',
+            gap: '12px',
             overflow: 'hidden'
           }}>
-            {platforms.map(platform => (
-              <div 
-                key={platform.platformType}
-                style={{ 
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  background: `${PLATFORM_COLORS[platform.platformType]}10`,
-                  borderRadius: '6px',
-                  padding: '6px 10px',
-                  minWidth: '60px',
-                  flex: 1
-                }}
-              >
-                <span style={{ 
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: PLATFORM_COLORS[platform.platformType],
-                  marginBottom: '4px'
-                }} />
-                <span style={{ 
-                  fontSize: '12px',
-                  color: 'var(--text-secondary)',
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  width: '100%'
-                }}>
-                  {platform.platformType.charAt(0).toUpperCase() + platform.platformType.slice(1)}
-                </span>
-                <span style={{ 
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  color: 'var(--text-primary)',
-                  marginTop: '2px'
-                }}>
-                  {formatMetricValue(platform.value, metricType)}
-                </span>
-              </div>
-            ))}
+            {platforms.map(platform => {
+              const [isPlatformHovered, setIsPlatformHovered] = useState(false);
+              return (
+                <div 
+                  key={platform.platformType}
+                  style={{ 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    background: isPlatformHovered 
+                      ? `${PLATFORM_COLORS[platform.platformType]}15`
+                      : `${PLATFORM_COLORS[platform.platformType]}10`,
+                    borderRadius: '8px',
+                    padding: '8px 12px',
+                    minWidth: '70px',
+                    flex: 1,
+                    transition: 'all 0.2s ease',
+                    border: `1px solid ${PLATFORM_COLORS[platform.platformType]}20`,
+                    transform: isPlatformHovered ? 'translateY(-1px)' : 'none'
+                  }}
+                  onMouseEnter={() => setIsPlatformHovered(true)}
+                  onMouseLeave={() => setIsPlatformHovered(false)}
+                >
+                  <span style={{ 
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: PLATFORM_COLORS[platform.platformType],
+                    marginBottom: '6px'
+                  }} />
+                  <span style={{ 
+                    fontSize: '12px',
+                    color: 'var(--text-secondary)',
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    width: '100%',
+                    fontWeight: 500
+                  }}>
+                    {platform.platformType.charAt(0).toUpperCase() + platform.platformType.slice(1)}
+                  </span>
+                  <span style={{ 
+                    fontSize: '14px',
+                    fontWeight: 600,
+                    color: 'var(--text-primary)',
+                    marginTop: '4px'
+                  }}>
+                    {formatMetricValue(platform.value, metricType)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
+
+const LoadingSkeleton = () => (
+  <div style={{ 
+    display: 'grid',
+    gridTemplateColumns: `repeat(${window.innerWidth < 1200 ? 2 : 3}, 1fr)`,
+    gap: '16px'
+  }}>
+    {[1, 2, 3, 4, 5, 6].map((i) => (
+      <div key={i} style={{ 
+        height: '140px',
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        padding: '16px',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
+        border: '1px solid rgba(226, 232, 240, 0.8)',
+        animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+      }}>
+        <div style={{ 
+          width: '40%', 
+          height: '16px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '4px',
+          marginBottom: '12px'
+        }}></div>
+        <div style={{ 
+          width: '60%', 
+          height: '32px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '4px',
+          marginBottom: '16px'
+        }}></div>
+        <div style={{ 
+          width: '100%', 
+          height: '40px',
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '4px'
+        }}></div>
+      </div>
+    ))}
+  </div>
+);
 
 const PerformanceOverview: React.FC<PerformanceOverviewProps> = ({ 
   metricSummaries, 
@@ -215,66 +289,48 @@ const PerformanceOverview: React.FC<PerformanceOverviewProps> = ({
   isLoading = false,
   showComparison
 }) => {
-  // Define tile layout structure
   const columns = window.innerWidth < 1200 ? 2 : 3;
-  
-  // Prepare items for TileLayout
-  const items = metricSummaries.map((metricSummary, index) => {
-    // Find corresponding time series data if available
-    const timeSeriesForMetric = timeSeriesData.find(ts => ts.metric === metricSummary.metricType);
-    
-    // Create sparkline data for this metric
-    const sparklineData = timeSeriesForMetric
-      ? timeSeriesForMetric.data.filter(d => !d.platform) // Only use aggregated data points
-      : undefined;
-    
-    return {
-      header: getMetricDisplayName(metricSummary.metricType),
-      body: (
-        <MetricCard 
-          metricSummary={metricSummary} 
-          sparklineData={sparklineData}
-          showComparison={showComparison}
-        />
-      ),
-      col: index % columns,
-      colSpan: 1,
-      rowSpan: 1
-    };
-  });
 
   return (
-    <Card style={{ 
-      borderRadius: '10px',
+    <div style={{ 
+      borderRadius: '16px',
       overflow: 'hidden',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      marginBottom: '24px'
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.06)',
+      marginBottom: '32px',
+      background: 'linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255, 255, 255, 0.8) 100%)',
+      backdropFilter: 'blur(12px)',
+      border: '1px solid var(--border-color)'
     }}>
-      <CardHeader style={{ 
+      <div style={{ 
         borderBottom: '1px solid var(--border-color)',
-        padding: '16px 20px',
-        background: 'var(--bg-secondary)'
+        padding: '20px 24px',
+        background: 'var(--bg-secondary)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
       }}>
-        <CardTitle style={{ fontSize: '18px', fontWeight: 600 }}>
+        <h2 style={{ 
+          fontSize: '20px', 
+          fontWeight: 600,
+          margin: 0,
+          letterSpacing: '-0.3px'
+        }}>
           Performance Overview
-        </CardTitle>
-      </CardHeader>
-      <CardBody style={{ padding: '20px' }}>
+        </h2>
+      </div>
+      <div style={{ padding: '24px' }}>
         {isLoading ? (
-          <div>Loading metrics...</div>
+          <LoadingSkeleton />
         ) : (
           <div style={{ 
             display: 'grid',
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
-            gap: '16px'
+            gap: '24px'
           }}>
             {metricSummaries.map((metricSummary, index) => {
-              // Find corresponding time series data if available
               const timeSeriesForMetric = timeSeriesData.find(ts => ts.metric === metricSummary.metricType);
-              
-              // Create sparkline data for this metric
               const sparklineData = timeSeriesForMetric
-                ? timeSeriesForMetric.data.filter(d => !d.platform) // Only use aggregated data points
+                ? timeSeriesForMetric.data.filter(d => !d.platform)
                 : undefined;
               
               return (
@@ -289,8 +345,8 @@ const PerformanceOverview: React.FC<PerformanceOverviewProps> = ({
             })}
           </div>
         )}
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 
