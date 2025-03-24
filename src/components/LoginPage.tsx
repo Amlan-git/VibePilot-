@@ -275,7 +275,7 @@ const LoginPage: React.FC = () => {
           color: 'var(--text-secondary)',
           fontSize: '14px'
         }}>
-          © 2023 VibePilot. All rights reserved.
+          © {new Date().getFullYear()} VibePilot. All rights reserved.
         </div>
       </div>
     </div>
