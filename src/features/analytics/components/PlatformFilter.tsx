@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   MultiSelect, 
-  MultiSelectChangeEvent 
+  MultiSelectChangeEvent
 } from '@progress/kendo-react-dropdowns';
 import { Chip } from '@progress/kendo-react-buttons';
 import { AnalyticsFilter, ContentType } from '../types';
@@ -31,7 +31,7 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
     const selectedPlatforms = e.value || [];
     onFilterChange({
       ...filter,
-      platforms: selectedPlatforms.map(item => item.value)
+      platforms: selectedPlatforms.map((item: any) => item.value)
     });
   };
 
@@ -39,7 +39,7 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
     const selectedContentTypes = e.value || [];
     onFilterChange({
       ...filter,
-      contentTypes: selectedContentTypes.map(item => item.value)
+      contentTypes: selectedContentTypes.map((item: any) => item.value)
     });
   };
 
@@ -50,7 +50,7 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
   // Customized item rendering for platforms with color indicators
   const platformItemRender = (li: React.ReactElement<HTMLLIElement>, itemProps: any) => {
     const itemChildren = (
-      <span>
+      <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <span 
           style={{ 
             display: 'inline-block', 
@@ -58,7 +58,6 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
             height: '12px', 
             borderRadius: '50%',
             backgroundColor: itemProps.dataItem.color,
-            marginRight: '8px'
           }}
         />
         {itemProps.dataItem.text}
@@ -68,9 +67,9 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
     return React.cloneElement(li, li.props, itemChildren);
   };
 
-  // Customized rendering of the values in the multiselect input
+  // Customized tag rendering for platforms
   const platformTagRender = (tagData: any) => {
-    const platform = platformOptions.find(p => p.value === tagData.value);
+    const platform = platformOptions.find(p => p.value === tagData.data?.value);
     
     return (
       <Chip
@@ -78,14 +77,34 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
         style={{
           backgroundColor: `${platform?.color}20`,
           borderColor: platform?.color,
-          color: platform?.color
+          color: platform?.color,
+          margin: '2px',
+          padding: '2px 8px'
+        }}
+      />
+    );
+  };
+
+  // Customized tag rendering for content types
+  const contentTypeTagRender = (tagData: any) => {
+    const contentType = contentTypeOptions.find(c => c.value === tagData.data?.value);
+    
+    return (
+      <Chip
+        text={contentType?.text}
+        style={{
+          backgroundColor: 'rgba(65, 145, 255, 0.1)',
+          borderColor: 'rgba(65, 145, 255, 0.3)',
+          color: '#3880FF',
+          margin: '2px',
+          padding: '2px 8px'
         }}
       />
     );
   };
 
   return (
-    <div className="platform-filter" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+    <div className="platform-filter" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
       <div style={{ flex: 1, minWidth: '200px' }}>
         <label style={{ 
           display: 'block', 
@@ -105,6 +124,9 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
           tagRender={platformTagRender}
           placeholder="Select platforms"
           style={{ width: '100%' }}
+          popupSettings={{
+            animate: true
+          }}
         />
       </div>
 
@@ -125,6 +147,10 @@ const PlatformFilter: React.FC<PlatformFilterProps> = ({ filter, onFilterChange 
           onChange={handleContentTypeChange}
           placeholder="Select content types"
           style={{ width: '100%' }}
+          popupSettings={{
+            animate: true
+          }}
+          tagRender={contentTypeTagRender}
         />
       </div>
     </div>

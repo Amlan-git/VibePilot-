@@ -211,41 +211,59 @@ const AnalyticsDashboard: React.FC = () => {
       }}>
         {/* Filters Section */}
         <div style={{ 
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          padding: '20px',
+          padding: '24px',
           background: 'var(--bg-secondary)',
           borderRadius: '12px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
-          border: '1px solid var(--border-color)'
+          border: '1px solid var(--border-color)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
-          <div style={{ marginBottom: '8px' }}>
+          <div style={{ 
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '4px',
+            background: 'linear-gradient(to right, #3880FF, #4B55E8)',
+            borderTopLeftRadius: '12px',
+            borderTopRightRadius: '12px'
+          }}></div>
+          
+          <div style={{ marginBottom: '16px' }}>
             <h2 style={{ 
-              fontSize: '16px', 
+              fontSize: '18px', 
               fontWeight: 600, 
               margin: 0,
               display: 'flex',
               alignItems: 'center',
               gap: '8px'
             }}>
-              <span className="k-icon k-i-filter" style={{ fontSize: '16px' }}></span>
+              <span className="k-icon k-i-filter" style={{ fontSize: '18px', color: '#3880FF' }}></span>
               Analytics Filters
             </h2>
-            <div style={{ fontSize: '13px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', marginTop: '6px' }}>
               Customize your dashboard view by adjusting the filters below
             </div>
           </div>
           
-          <TimeSelector 
-            filter={filter}
-            onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
-          />
-          
-          <PlatformFilter
-            filter={filter}
-            onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
-          />
+          <div style={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px'
+          }}>
+            <TimeSelector 
+              filter={filter}
+              onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
+            />
+            
+            <div style={{ height: '1px', background: 'var(--border-color)' }}></div>
+            
+            <PlatformFilter
+              filter={filter}
+              onFilterChange={(newFilter) => setFilter({...filter, ...newFilter})}
+            />
+          </div>
           
           {/* Active filters display */}
           {(filter.platforms.length > 0 || filter.contentTypes.length > 0) && (
@@ -253,10 +271,23 @@ const AnalyticsDashboard: React.FC = () => {
               display: 'flex', 
               flexWrap: 'wrap',
               gap: '8px',
-              marginTop: '8px',
-              alignItems: 'center'
+              marginTop: '20px',
+              alignItems: 'center',
+              padding: '12px',
+              borderRadius: '8px',
+              background: 'var(--bg-primary)',
+              border: '1px dashed var(--border-color)'
             }}>
-              <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Active filters:</span>
+              <span style={{ 
+                fontSize: '13px', 
+                color: 'var(--text-secondary)',
+                fontWeight: 500,
+                background: 'var(--bg-secondary)',
+                padding: '3px 8px',
+                borderRadius: '4px'
+              }}>
+                Active filters:
+              </span>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {filter.platforms.map(platform => (
                   <Chip
@@ -273,6 +304,11 @@ const AnalyticsDashboard: React.FC = () => {
                   <Chip
                     key={contentType}
                     text={contentType.charAt(0).toUpperCase() + contentType.slice(1)}
+                    style={{
+                      backgroundColor: 'rgba(65, 145, 255, 0.1)',
+                      borderColor: 'rgba(65, 145, 255, 0.3)',
+                      color: '#3880FF',
+                    }}
                   />
                 ))}
                 {filter.showAIOptimizedOnly && (
