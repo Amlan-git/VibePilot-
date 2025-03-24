@@ -1,6 +1,8 @@
 # VibePilot - Social Media Management Platform
 
-VibePilot is a comprehensive social media management platform that helps users plan, schedule, and analyze their social media content across multiple platforms.
+VibePilot is an entry for the KendoReact Free Components Challenge 2025. It showcases how KendoReact’s free tier components can be combined with AI (via Cohere) to build a modern, responsive social media management tool — featuring post scheduling, AI-assisted content creation, and engagement analytics.
+
+## KendoReact Free Components Challenge 2025: https://dev.to/challenges/kendoreact
 
 ## Features
 
