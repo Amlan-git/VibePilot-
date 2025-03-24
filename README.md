@@ -4,7 +4,7 @@ VibePilot is an entry for the KendoReact Free Components Challenge 2025. It show
 
 ## KendoReact Free Components Challenge 2025: https://dev.to/challenges/kendoreact
 
-{% embed https://www.loom.com/share/2fc29ea263ed4f8b9a59b4f4b44ce6d9 %}
+https://www.loom.com/share/2fc29ea263ed4f8b9a59b4f4b44ce6d9
 
 ## Features
 
