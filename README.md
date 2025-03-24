@@ -5,7 +5,7 @@ VibePilot is an entry for the KendoReact Free Components Challenge 2025. It show
 ## KendoReact Free Components Challenge 2025: https://dev.to/challenges/kendoreact
 ## Live demo : https://vibepilot.netlify.app/
 
-https://www.loom.com/share/2fc29ea263ed4f8b9a59b4f4b44ce6d9
+https://www.loom.com/share/02d047a5e3e44af1b086390ce6709543?sid=97d57b19-1a49-4136-8bdd-c6eade0d3ecc
 
 ## Features
 
@@ -123,9 +123,7 @@ VITE_COHERE_API_KEY=your-cohere-api-key
 
 Without a valid API key, the AI features will operate in demo mode with static responses.
 
-## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgements
 
