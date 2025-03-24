@@ -25,7 +25,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          kendo: ['@progress/kendo-react-all', '@progress/kendo-theme-default'],
+          kendo: ['@progress/kendo-theme-default'],
         },
       },
     },
