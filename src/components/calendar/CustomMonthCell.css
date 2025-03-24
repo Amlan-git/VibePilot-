@@ -1,0 +1,75 @@
+.custom-month-cell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 4px;
+  min-height: 80px; /* Ensure consistent cell height */
+}
+
+.custom-month-cell.today {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.custom-month-cell.weekend {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.custom-month-cell.other-month {
+  opacity: 0.5;
+}
+
+.custom-month-cell.selected {
+  background-color: rgba(0, 123, 255, 0.1);
+  border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.date-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.date-number {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.custom-month-cell.today .date-number {
+  color: #007bff;
+}
+
+.density-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.density-bar {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #007bff;
+  margin-bottom: 2px;
+}
+
+.more-indicator {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: right;
+  color: #6c757d;
+}
+
+.conflict-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  cursor: pointer;
+} 

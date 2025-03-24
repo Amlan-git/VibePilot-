@@ -1,0 +1,80 @@
+.custom-event {
+  padding: 8px 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.2s ease;
+}
+
+.custom-event:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.event-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
+}
+
+.event-time {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.event-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.platform-badge, .status-badge {
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.platform-badge {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: #0077cc;
+}
+
+.status-badge {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #856404;
+}
+
+/* Status colors */
+.custom-event[data-status="draft"] {
+  border-left: 3px solid #ffc107;
+}
+
+.custom-event[data-status="scheduled"] {
+  border-left: 3px solid #17a2b8;
+}
+
+.custom-event[data-status="published"] {
+  border-left: 3px solid #28a745;
+}
+
+.custom-event[data-status="failed"] {
+  border-left: 3px solid #dc3545;
+}
+
+/* Override tooltip styles */
+.k-tooltip-content {
+  max-width: 300px;
+  line-height: 1.4;
+  font-size: 14px;
+  white-space: normal;
+} 

@@ -1,0 +1,262 @@
+/* Theme Transition */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-transition * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Light Theme (default) */
+:root, body, body[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  --bg-tertiary-rgb: 241, 243, 245;
+  --bg-accent: #e6f7ff;
+  
+  --text-primary: #333;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --text-accent: #0066cc;
+  --text-accent-rgb: 0, 102, 204;
+  
+  --border-color: #e2e8f0;
+  --border-color-focus: #a4cafe;
+  
+  --shadow-color: rgba(0, 0, 0, 0.04);
+  --shadow-color-hover: rgba(0, 0, 0, 0.1);
+  
+  --card-bg: #ffffff;
+  --dialog-bg: #ffffff;
+  --tooltip-bg: #212529;
+  --tooltip-text: #ffffff;
+
+  --success-color: #38a169;
+  --warning-color: #dd6b20;
+  --error-color: #e53e3e;
+  --info-color: #17a2b8;
+  
+  --btn-primary-bg: #0066cc;
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #edf2f7;
+  --btn-secondary-text: #4a5568;
+  --btn-error-bg: #dc3545;
+  --btn-error-text: #ffffff;
+  
+  --input-bg: #ffffff;
+  --input-text: #333;
+  --input-border: #ced4da;
+  --input-placeholder: #adb5bd;
+  
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+}
+
+/* Dark Theme - Enhanced for better visibility */
+body[data-theme="dark"] {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --bg-tertiary: #283141;
+  --bg-tertiary-rgb: 40, 49, 65;
+  --bg-accent: #0066cc;
+  
+  --text-primary: #f5f5f5;
+  --text-secondary: #cbd5e0;
+  --text-tertiary: #a0aec0;
+  --text-accent: #66b3ff;
+  --text-accent-rgb: 102, 179, 255;
+  
+  --border-color: #4a5568;
+  --border-color-focus: #90cdf4;
+  
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-hover: rgba(0, 0, 0, 0.2);
+  
+  --card-bg: #2d3748;
+  --dialog-bg: #2d3748;
+  --tooltip-bg: #f8f9fa;
+  --tooltip-text: #121212;
+
+  --success-color: #9ae6b4;
+  --warning-color: #fbd38d;
+  --error-color: #feb2b2;
+  --info-color: #63b3ed;
+  
+  --btn-primary-bg: #66b3ff;
+  --btn-primary-text: #1a202c;
+  --btn-secondary-bg: #4a5568;
+  --btn-secondary-text: #f5f5f5;
+  --btn-error-bg: #ff4d4d;
+  --btn-error-text: #ffffff;
+  
+  --input-bg: #2d3748;
+  --input-text: #f5f5f5;
+  --input-border: #555555;
+  --input-placeholder: #aaaaaa;
+  
+  --scrollbar-track: #2d3748;
+  --scrollbar-thumb: #4a5568;
+}
+
+/* Apply theme to scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+/* Modal backdrop */
+.k-overlay {
+  background-color: var(--shadow-color) !important;
+}
+
+/* Transition effect on hover */
+.theme-transition-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+/* Dark mode icon animations */
+.moon-icon, .sun-icon {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+body[data-theme="dark"] .sun-icon,
+body[data-theme="light"] .moon-icon {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+  position: absolute;
+}
+
+body[data-theme="dark"] .moon-icon,
+body[data-theme="light"] .sun-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Additional contrast enhancement for dark mode */
+body[data-theme="dark"] .k-button {
+  border: 1px solid var(--border-color);
+}
+
+body[data-theme="dark"] .k-dialog {
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="dark"] a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+body[data-theme="dark"] a:hover {
+  text-decoration: underline;
+  color: #99ccff;
+}
+
+body[data-theme="dark"] .card {
+  border: 1px solid var(--border-color);
+}
+
+body[data-theme="dark"] .k-input,
+body[data-theme="dark"] .k-textarea,
+body[data-theme="dark"] .k-dropdown-wrap,
+body[data-theme="dark"] .k-picker-wrap {
+  border: 1px solid var(--border-color);
+}
+
+/* Add these hover effect classes at the end of the file */
+
+/* Chart bar hover effect */
+.chart-bar-hover:hover {
+  transform: scaleY(1.05);
+}
+
+/* Post item hover effect */
+.post-item-hover:hover {
+  background-color: var(--bg-tertiary);
+}
+
+/* Additional hover effects */
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 6px 12px var(--shadow-color-hover);
+}
+
+.hover-border:hover {
+  border-color: var(--text-accent);
+}
+
+/* Animation for the pulse effect */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--text-accent-rgb), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--text-accent-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--text-accent-rgb), 0);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Horizontal Scrollable Container */
+.horizontal-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 1rem 0;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 3px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.post-card {
+  min-width: 280px;
+  max-width: 320px;
+  height: 140px;
+  border-radius: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--card-bg), rgba(var(--bg-tertiary-rgb), 0.8));
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color-hover);
+  border-color: var(--border-color-focus);
+} 

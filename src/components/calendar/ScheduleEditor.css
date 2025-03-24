@@ -1,0 +1,85 @@
+.k-form-fieldset {
+  margin: 0;
+  padding: 20px;
+  border: none;
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.form-row:last-child {
+  margin-bottom: 0;
+}
+
+.form-row-multi {
+  display: flex;
+  gap: 16px;
+}
+
+.form-column {
+  flex: 1;
+}
+
+/* Platform selection with best time button */
+.platform-selection {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.platform-selection .k-multiselect {
+  flex-grow: 1;
+}
+
+.platform-selection .k-button {
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+/* Make inputs consistent height */
+.k-textbox, 
+.k-input,
+.k-textarea,
+.k-dropdown,
+.k-datepicker,
+.k-datetimepicker,
+.k-multiselect {
+  width: 100%;
+}
+
+.k-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Checkbox alignment */
+.k-checkbox-label {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+}
+
+/* Form error messages */
+.k-form-error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Dialog actions */
+.k-dialog-buttongroup {
+  padding: 16px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 576px) {
+  .form-row-multi {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-column {
+    width: 100%;
+  }
+} 

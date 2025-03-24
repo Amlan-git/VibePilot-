@@ -1,0 +1,92 @@
+.content-calendar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  height: 100%;
+}
+
+.calendar-error h3 {
+  color: #dc3545;
+  margin-bottom: 1rem;
+}
+
+.calendar-error button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-error button:hover {
+  background-color: #0069d9;
+}
+
+/* Override KendoReact Scheduler styles */
+.content-calendar .k-scheduler-layout {
+  border-radius: 4px;
+}
+
+.content-calendar .k-scheduler-header {
+  background-color: #f7f9fc;
+}
+
+.content-calendar .k-scheduler-toolbar {
+  background-color: white;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.content-calendar .k-scheduler-table {
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+
+.content-calendar .k-scheduler-cell {
+  border: 1px solid #e6e6e6;
+}
+
+.content-calendar .k-scheduler-cell.k-today {
+  background-color: #f0f7ff;
+}
+
+.content-calendar .k-scheduler-header-wrap {
+  background-color: #f7f9fc;
+}
+
+.content-calendar .k-event {
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.content-calendar .k-event:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.content-calendar .k-scheduler-toolbar .k-nav-today,
+.content-calendar .k-scheduler-toolbar .k-nav-prev,
+.content-calendar .k-scheduler-toolbar .k-nav-next {
+  background-color: white;
+  border-color: #e6e6e6;
+}
+
+.content-calendar .k-scheduler-toolbar .k-nav-today:hover,
+.content-calendar .k-scheduler-toolbar .k-nav-prev:hover,
+.content-calendar .k-scheduler-toolbar .k-nav-next:hover {
+  background-color: #f7f9fc;
+} 
