@@ -3,6 +3,8 @@
 VibePilot is an entry for the KendoReact Free Components Challenge 2025. It showcases how KendoReact’s free tier components can be combined with AI (via Cohere) to build a modern, responsive social media management tool — featuring post scheduling, AI-assisted content creation, and engagement analytics.
 
 ## KendoReact Free Components Challenge 2025: https://dev.to/challenges/kendoreact
+## Live demo : 
+https://vibepilot.netlify.app/
 
 https://www.loom.com/share/2fc29ea263ed4f8b9a59b4f4b44ce6d9
 
